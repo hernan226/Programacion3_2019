@@ -8,9 +8,9 @@ class Alumno{
     
     function __construct($nombre, $apellido, $legajo){
     
-        $this->$nombre=$nombre;
-        $this->$apellido=$apellido;
-        $this->$legajo=$legajo;
+        $this->nombre=$nombre;
+        $this->apellido=$apellido;
+        $this->legajo=$legajo;
     }
 
 }
