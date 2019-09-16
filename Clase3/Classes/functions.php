@@ -60,7 +60,7 @@
 
         $archivo = fopen("jayson.json", "a");
         fclose($archivo);
-
+        var_dump($archivo);
         $archivo = fopen("jayson.json", "r");
 
         if (filesize($archivo)>0)
@@ -80,6 +80,22 @@
         for ($i=0; $i < count($aux); $i++) { 
             if ($aux[$i][0] != $borrar[0]) {
                 $retorno[] = $aux[$i];
+            }
+        }    
+
+        return json_encode($retorno);
+    }
+
+    function Editar($pers,  $edit=NULL){
+        $aux = Leer();
+        $retorno = array();
+
+        for ($i=0; $i < count($aux); $i++) { 
+            if ($aux[$i][0] != $pers[0]) {
+                $retorno[] = $aux[$i];
+            }
+            else{
+                $retorno[] = $edit;
             }
         }    
 
