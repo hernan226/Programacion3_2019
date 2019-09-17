@@ -1,0 +1,20 @@
+[
+    {
+        "legajo": "1",
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "foto": ".\/Imagenes\/JuanPerez1.png"
+    },
+    {
+        "legajo": "2",
+        "nombre": "Pedro",
+        "apellido": "Lopez",
+        "foto": ".\/Imagenes\/PedroLopez2.jpg"
+    },
+    {
+        "legajo": "3",
+        "nombre": "Hernan",
+        "apellido": "Hernandez",
+        "foto": ".\/Imagenes\/HernanHernandez3.jpg"
+    }
+]
