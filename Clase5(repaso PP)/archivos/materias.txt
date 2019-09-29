@@ -1,0 +1,2 @@
+1822;ProgramacionIII;10;11;
+1821;Estadistica;12;33;
