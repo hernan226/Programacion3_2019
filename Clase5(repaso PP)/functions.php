@@ -28,13 +28,14 @@
             $array[] = $str;
         }
         fclose($archivo);
+        array_pop($array);
         return $array;
     }
 
     function BuscarAlumno($apellido, $email = ""){
         $alumnos = Leer(ACHIVO_ALUMNOS);
         $retorno = array();
-        for ($i = 0; $i < count($alumnos)-1; $i++) {
+        for ($i = 0; $i < count($alumnos); $i++) {
             $aux = new Alumno($alumnos[$i][1], $alumnos[$i][2], $alumnos[$i][0], $alumnos[$i][3]);
             if (strtolower($aux->apellido) == strtolower($apellido))
                 $retorno[] = $aux;
@@ -67,13 +68,13 @@
         return $retorno;
     }
 
-    function GuardarFoto($file, $mail){
+    function GuardarFoto($file, $mail, $apellido = ""){
         
         $tmp    = $file["foto"]["tmp_name"];
         $ext    = ".".pathinfo($file["foto"]["name"], PATHINFO_EXTENSION);
-        $foto   = 'fotos/'.$mail.$ext;
-        if (file_exists($foto)) {
-            rename($foto, 'backUpFotos/'.'OLD_'.$mail.$ext);
+        $foto   = "fotos/".$mail.$ext;
+        if ($apellido != "") {
+            rename($foto, 'backUpFotos/'.$apellido.date("d/m/y").$ext);
             $rta = move_uploaded_file($tmp, $foto);
         }
         else{
@@ -89,7 +90,7 @@
         $materias = Leer(ACHIVO_MATERIAS);
         $retorno = 0;
         $aux = array();
-        for ($i = 0; $i < count($materias)-1; $i++) {
+        for ($i = 0; $i < count($materias); $i++) {
             if ($materias[$i][0] == $codigo){
                 $aux[] = new Materia($materias[$i][0], $materias[$i][1], ((int)$materias[$i][2] - 1), $materias[$i][3]);
             }
@@ -118,13 +119,43 @@
         $retorno = false;
         $aux = Leer(ACHIVO_INSCRIPCIONES);
 
-        for ($i=0; $i < count($aux)-1; $i++) { 
+        for ($i=0; $i < count($aux); $i++) { 
             if ($aux[$i][2] == $email && $aux[$i][4] == $codigoMateria) {
                 $retorno = true;
                 break;
             }
         }
         return $retorno;
+    }
+
+    function HacerTablaInscripciones($array){
+        $strAux = '<table style="width:100%" border="1">'
+        ."<tr> <th>Nombre</th> <th>Apellido</th> <th>Email</th> <th>Materia</th> <th>Codigo</th> </tr>";
+        for ($i=0; $i < count($array); $i++) { 
+            $strAux = $strAux."<tr>"
+            ."<td>".$array[$i][0]."</td>"
+            ."<td>".$array[$i][1]."</td>"
+            ."<td>".$array[$i][2]."</td>"
+            ."<td>".$array[$i][3]."</td>"
+            ."<td>".$array[$i][4]."</td>"
+            ."</tr>";
+        }
+        $strAux = $strAux."</table>";
+        echo $strAux;
+    }
+    function HacerTablaAlumnos($array){
+        $strAux = '<table style="width:100%" border="1">'
+        ."<tr> <th>Email</th> <th>Nombre</th> <th>Apellido</th> <th>Foto</th> </tr>";
+        for ($i=0; $i < count($array); $i++) { 
+            $strAux = $strAux."<tr>"
+            ."<td>".$array[$i][0]."</td>"
+            ."<td>".$array[$i][1]."</td>"
+            ."<td>".$array[$i][2]."</td>"
+            .'<td> <img src="'.$array[$i][3].'"> </td>'
+            ."</tr>";
+        }
+        $strAux = $strAux."</table>";
+        echo $strAux;
     }
 
     // GET FUNCTIONS
@@ -158,6 +189,36 @@
             }
         }
     }
+
+    function Inscripciones($materia = "", $apellido = ""){
+        $array = Leer(ACHIVO_INSCRIPCIONES);
+        $aux = array();
+
+        if($apellido != "") {
+            for ($i = 0; $i < count($array); $i++) { 
+                if ($apellido == $array[$i][1]) {
+                    $aux[] = $array[$i];
+                }
+            }
+            HacerTablaInscripciones($aux);
+        } else if ($materia != "") {
+            for ($i = 0; $i < count($array); $i++) { 
+                if ($materia == $array[$i][3]) {
+                    $aux[] = $array[$i];
+                }
+            }
+            HacerTablaInscripciones($aux);
+        } else {
+            HacerTablaInscripciones($array);
+        }
+        
+    }
+    
+    function Alumnos(){
+        $array = Leer(ACHIVO_ALUMNOS);
+        HacerTablaAlumnos($array);
+    }
+
     ///////////////////////////////////////////////////////////////////
     
     // POST FUNCTIONS /////////////////////////////////////////////////
@@ -181,6 +242,45 @@
             Escribir(new Materia($codigo, $nombre, $cupo, $aula), ACHIVO_MATERIAS);
         else
             echo 'Error al ingresar los datos.';
+    }
+
+    function ModificarAlumno($email, $apellido, $newapellido = "", $newnombre = "", $newfile = ""){
+        if (ValidarEmail($email) && ValidarNombre($apellido)) {
+            $flag = true;
+            $array = Leer(ACHIVO_ALUMNOS);
+            $aux = array();
+            for ($i = 0; $i < count($array); $i++) { 
+                if ($array[$i][0] == $email) {
+                    
+                    if ($newnombre != "") {
+                        $array[$i][1] = $newnombre;
+                    }
+                    if ($newfile != "") {
+
+                        if ($newapellido != "") {
+                            GuardarFoto($newfile, $email, $newapellido);
+                        }
+                        else
+                            GuardarFoto($newfile, $email, $apellido);
+                    }
+                    if ($newapellido != "") {
+                        $array[$i][2] = $newapellido;
+                    }
+                    $flag = false;
+                }
+                $aux[] = new Alumno($array[$i][1], $array[$i][2], $array[$i][0], $array[$i][3]);
+            }
+            if ($flag) {
+                echo "Alumno no encontrado";
+            }
+            else{
+                Reescribir($aux, ACHIVO_ALUMNOS);
+
+            }
+        }
+        else
+            echo "Datos invalidos";
+       
     }
 
     ///////////////////////////////////////////////////////////////////

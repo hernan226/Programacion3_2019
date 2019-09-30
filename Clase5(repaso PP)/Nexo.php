@@ -15,10 +15,10 @@
                      $_GET['apellido'], $_GET['email'], $_GET['materia'], $_GET['codigo']);
                 break;
             case 'inscripciones':
-                var_dump($_GET);
+                Inscripciones($_GET['materia'], $_GET['apellido']);
                 break;
             case 'alumnos':
-                # code...
+                Alumnos();
                 break;
             
             default:
@@ -33,7 +33,7 @@
                 CargarMateria($_POST['nombre'], $_POST['cupo'], $_POST['codigo'], $_POST['aula']);
                 break;
             case 'modificarAlumno':
-                # code...
+                ModificarAlumno($_POST['email'], $_POST['apellido'], $_POST['newApellido'], $_POST['Newnombre'], $_FILES);
                 break;
             
             default:

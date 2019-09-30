@@ -1,7 +1,8 @@
-OsiBizco@gmail.com;Osito;Biscocho;fotos/OsiBizco@gmail.com.jpg;
-OsiBizco@gmail.com;Osito;Bizco;fotos/OsiBizco@gmail.com.jpg;
-OsiBizco@gmail.com;Osito;Cocho;fotos/OsiBizco@gmail.com.jpg;
 OsiBizco@gmail.com;Osito;Bizcocho;fotos/OsiBizco@gmail.com.jpg;
-OsiBizco@gmail.com;Osito;Bizcocho;fotos/OsiBizco@gmail.com.jpg;
-OsiBizco@gmail.com;OsitoIII;Bizcocho;fotos/OsiBizco@gmail.com.jpg;
-OsiBizco@gmail.com;OsitoIII;Bizcocho;fotos/OsiBizco@gmail.com.jpg;
+OsiBizco1@gmail.com;Osito;Bizco;fotos/OsiBizco1@gmail.com.jpg;
+OsiBizco2@gmail.com;Osito;Cocho;fotos/OsiBizco2@gmail.com.jpg;
+OsiBizco3@gmail.com;Osito;Bizcochor;fotos/OsiBizco3@gmail.com.jpg;
+OsiBizco4@gmail.com;Osito;Bizcochot;fotos/OsiBizco4@gmail.com.jpg;
+OsiBizco5@gmail.com;OsitoIII;Bizcocho;fotos/OsiBizco5@gmail.com.jpg;
+OsiBizco6@gmail.com;OsitoIII;Bizcocho;fotos/OsiBizco6@gmail.com.jpg;
+Peper12@hotmail.com;Pepe;Perez;fotos/Peper12@hotmail.com.jpg;

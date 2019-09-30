@@ -1,2 +1,4 @@
 1822;ProgramacionIII;10;11;
 1821;Estadistica;12;33;
+1820;LaboratorioIII;40;32;
+1810;Legislacion;11;16;
