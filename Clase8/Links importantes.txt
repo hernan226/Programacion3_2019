@@ -1,0 +1,4 @@
+https://laravel.com/docs/5.8/eloquent
+https://getcomposer.org/
+http://www.slimframework.com/
+https://github.com/hernan226/Full-API-REST-Skeleton
